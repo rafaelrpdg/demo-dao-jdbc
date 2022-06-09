@@ -35,7 +35,7 @@ public class SellerDaoJDBC implements SellerDao {
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -85,8 +85,31 @@ public class SellerDaoJDBC implements SellerDao {
 	}
 	@Override
 	public List<Seller> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = con.prepareStatement("SELECT seller.* , department.Name AS depName FROM seller INNER JOIN department on seller.DepartmentId = Department.Id order by Name");
+			rs = st.executeQuery();
+			List<Seller> list = new ArrayList<>();
+			Map<Integer, Department> map = new HashMap<>();
+			while(rs.next()) {
+				Department dep = map.get(rs.getInt("DepartmentId"));
+				if(dep == null) {
+					dep = instantiateDepartment(rs);
+					map.put(rs.getInt("DepartmentId"), dep);
+				}
+				
+				Seller obj = instantiateSeller(rs, dep);
+				list.add(obj);
+			}
+			return list;
+		}catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeResultSet(rs);
+			DB.closeStatament(st);
+		}
 	}
 	@Override
 	public List<Seller> findByDepartment(Department department) {
@@ -98,7 +121,7 @@ public class SellerDaoJDBC implements SellerDao {
 			st.setInt(1, department.getId());
 			rs= st.executeQuery();
 			
-			List<Seller> list = new ArrayList();
+			List<Seller> list = new ArrayList<>();
 			Map<Integer, Department> map = new HashMap<>();
 			while(rs.next()) {
 				

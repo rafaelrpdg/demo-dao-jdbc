@@ -1,4 +1,6 @@
 package application;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import model.dao.DaoFactory;
@@ -11,24 +13,29 @@ public class Program {
 	public static void main(String[] args) {
 		
 		SellerDao sellerDao = DaoFactory.createSellerDao();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 		
-		System.out.println("=== Test FindById ===");
-		Seller seller = sellerDao.findById(3);
-		
-		System.out.println(seller);
-
-		System.out.println("=== Test2 FindByDeparment ===");
+//		System.out.println("=== Test FindById ===");
+//		Seller seller = sellerDao.findById(3);
+//		
+//		System.out.println(seller);
+//
+//		System.out.println("=== Test2 FindByDeparment ===");
 		Department department = new Department(2,null);
-		List<Seller> list = sellerDao.findByDepartment(department);
-		for (Seller seller2 : list) {
-			System.out.println(seller2);
-		}
+//		List<Seller> list = sellerDao.findByDepartment(department);
+//		for (Seller seller2 : list) {
+//			System.out.println(seller2);
+//		}
+//		
+//		System.out.println("=== Test2 Findall ===");
+//		list = sellerDao.findAll();
+//		for (Seller seller2 : list) {
+//			System.out.println(seller2); 
+//		}
+		Seller newSeller = new Seller(null,"Greg", "greg@gmail.com", new Date(), 3000.0, department);
+		sellerDao.insert(newSeller);
 		
-		System.out.println("=== Test2 Findall ===");
-		list = sellerDao.findAll();
-		for (Seller seller2 : list) {
-			System.out.println(seller2);
-		}
+		
 		
 		
 	}

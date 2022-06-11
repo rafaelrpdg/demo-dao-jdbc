@@ -30,11 +30,14 @@ public class Program {
 //		}
 		//Seller newSeller = new Seller(9,"Tafarel", "taferel2000@gmail.com", new Date(), 90000.0, department);
 		
-		seller = sellerDao.findById(9);
+//		seller = sellerDao.findById(9);
+//		
+//		seller.setName("Anita");
+//		sellerDao.update(seller);
+//		System.out.println("update complete!");
 		
-		seller.setName("Anita");
-		sellerDao.update(seller);
-		System.out.println("update complete!");
+		sellerDao.deleteById(3);
+		
 		
 		
 		

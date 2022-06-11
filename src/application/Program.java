@@ -1,8 +1,5 @@
 package application;
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import model.dao.DaoFactory;
 import model.dao.SellerDao;
 import model.entities.Department;
@@ -13,15 +10,14 @@ public class Program {
 	public static void main(String[] args) {
 		
 		SellerDao sellerDao = DaoFactory.createSellerDao();
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
 		
 //		System.out.println("=== Test FindById ===");
-//		Seller seller = sellerDao.findById(3);
+		Seller seller = sellerDao.findById(3);
 //		
 //		System.out.println(seller);
 //
 //		System.out.println("=== Test2 FindByDeparment ===");
-		Department department = new Department(2,null);
+		Department department = new Department(1,null);
 //		List<Seller> list = sellerDao.findByDepartment(department);
 //		for (Seller seller2 : list) {
 //			System.out.println(seller2);
@@ -32,9 +28,13 @@ public class Program {
 //		for (Seller seller2 : list) {
 //			System.out.println(seller2); 
 //		}
-		Seller newSeller = new Seller(null,"Greg", "greg@gmail.com", new Date(), 3000.0, department);
-		sellerDao.insert(newSeller);
+		//Seller newSeller = new Seller(9,"Tafarel", "taferel2000@gmail.com", new Date(), 90000.0, department);
 		
+		seller = sellerDao.findById(9);
+		
+		seller.setName("Anita");
+		sellerDao.update(seller);
+		System.out.println("update complete!");
 		
 		
 		
